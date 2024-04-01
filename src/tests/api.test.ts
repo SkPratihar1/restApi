@@ -1,19 +1,27 @@
 import { fetchData, productDetails,productId,AddNewProduct } from '../api/api';
+import { performance } from 'perf_hooks'; // Import performance module for measuring time
+
+
 describe("Space test suite", () => {
 
 test('Fetch data from API', async () => {
     const data = await fetchData();
     console.log(data)
-   
+    const startTime = performance.now(); 
+    await fetchData();
+
+    const endTime = performance.now(); 
+    const executionTime = endTime - startTime; 
+    const threshold = 600; 
+    expect(executionTime).toBeLessThan(threshold);
+
     expect(data).toBeDefined();
     
 });
 
 test('Fetch specific product from API', async () => {
     console.log("productId",productId);
-    
     const data = await productDetails(productId);
-    // console.log('product',data)
     expect(data).toBeDefined();
 });
 
@@ -40,7 +48,6 @@ test('Product add', async () => {
 
     } catch (error) {
         throw error
-        //fail(error.message);
     }
     
     

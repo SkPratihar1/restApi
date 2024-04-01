@@ -5,6 +5,7 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
+  
   reporters: [
     'default',
     ['jest-html-reporters', {
